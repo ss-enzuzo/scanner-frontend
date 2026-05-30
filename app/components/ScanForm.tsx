@@ -18,10 +18,9 @@ export default function ScanForm() {
     setStatus({ type: "loading" });
 
     const params = new URLSearchParams({ url, email });
-    const endpoint = `/api/scan?${params}`;
 
     try {
-      const res = await fetch(endpoint);
+      const res = await fetch(`/api/scan?${params}`);
       if (res.ok) {
         setStatus({ type: "success", email });
       } else {
@@ -42,9 +41,9 @@ export default function ScanForm() {
   const loading = status.type === "loading";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4" style={{ fontFamily: "var(--font-inter)" }}>
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="url" className="text-sm font-medium text-zinc-700">
+        <label htmlFor="url" className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>
           Website URL
         </label>
         <input
@@ -54,12 +53,12 @@ export default function ScanForm() {
           placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          className="rounded-lg px-3 py-2.5 text-sm outline-none bg-white/10 text-white placeholder:text-white/30 border border-white/20 focus:border-[#23DC64] transition"
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="email" className="text-sm font-medium text-zinc-700">
+        <label htmlFor="email" className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>
           Email address
         </label>
         <input
@@ -69,26 +68,27 @@ export default function ScanForm() {
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          className="rounded-lg px-3 py-2.5 text-sm outline-none bg-white/10 text-white placeholder:text-white/30 border border-white/20 focus:border-[#23DC64] transition"
         />
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-300"
+        className="mt-2 rounded-lg px-4 py-3 text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ background: "#23DC64", color: "#002F2F" }}
       >
         {loading ? "Starting scan…" : "Start scan"}
       </button>
 
       {status.type === "success" && (
-        <p className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <p className="rounded-lg px-4 py-3 text-sm" style={{ background: "rgba(35,220,100,0.15)", color: "#23DC64" }}>
           Scan started — results will be sent to <strong>{status.email}</strong>.
         </p>
       )}
 
       {status.type === "error" && (
-        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="rounded-lg px-4 py-3 text-sm" style={{ background: "rgba(255,100,100,0.15)", color: "#ff6b6b" }}>
           {status.message}
         </p>
       )}
