@@ -6,12 +6,15 @@ const PROXY_TOKEN = process.env.PROXY_TOKEN ?? "mysecret";
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const url = searchParams.get("url");
+  const email = searchParams.get("email");
 
   if (!url) {
     return NextResponse.json({ error: "url is required" }, { status: 400 });
   }
 
-  const params = new URLSearchParams({ url });
+  const proxyParams: Record<string, string> = { url };
+  if (email) proxyParams.email = email;
+  const params = new URLSearchParams(proxyParams);
   const upstream = `${PROXY_BASE}/scan?${params}`;
 
   try {
