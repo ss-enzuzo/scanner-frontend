@@ -1,3 +1,6 @@
+<img width="400" height="211" alt="Screen Recording 2026-06-01 at 1 20 55 AM" src="https://github.com/user-attachments/assets/676fe424-4f2b-4905-8cce-1cc38ba03699" />
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
